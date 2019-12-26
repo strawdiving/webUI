@@ -1,0 +1,7 @@
+ ## Introduction
+ 
+JointJS图表库可以让你仅仅依赖JavaScript和SVG，就能为所有现代浏览器创建完全交互式的图表工具。它的MVC（其实更多是MV）架构将graph, element 和 link模型与它们的渲染分离开来，这使得JointJS更易于集成到后端应用程序中。
+
+JointJS使用Backbone MVC库构建，并使用jQuery和Lodash。
+
+JointJS中的图表由Graph模型（joint.dia.Graph）表示，您可以在其中添加cells的模型 ——可以是Elements（joint.dia.Element的子类型），也可以是Links（joint.dia.Link的子类型）。为了显示图表，需要将其附加到Paper视图（joint.dia.Paper）。从版本0.6开始，您只需要处理模型，而不用处理视图；paper会从graph模型提供的数据中生成ElementViews和LinkViews。该体系结构如下图所示：
