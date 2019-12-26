@@ -56,7 +56,7 @@ model是核心，包含交互式数据及围绕它的大部分逻辑，如验证
 
 Cell，Element，Link和Graph属于Model，继承关系如下图所示：
 
-![backbone.model](backbone.model.PNG)
+![backbone.model](JointJS/backbone.model.PNG)
 
 joint.dia.Cell和joint.dia.Graph都继承自Backbone的Model，并添加了各自的附加属性和方法。
 
@@ -146,7 +146,7 @@ Backbone的View并不是模板本身，却是一些控制类，它们处理模�
 
 CellView，ElementView，LinkView和Paper属于View，继承关系如下图所示：
 
-![Backbone.View](Backbone.View.png)
+![Backbone.View](JointJS/Backbone.View.png)
 
 joint.MVC.View继承并扩展了Backbone.View，包含了JointJS中的视图的基本方法和属性。joint.dia.CellView和joint.dia.Paper都继承自joint.MVC.View。
 
@@ -179,7 +179,7 @@ joint.dia.Paper是joint.dia.Graph模型的视图，继承自 joint.mvc.View（�
 
 #### 3. Collection
 
-![backbone.collection](backbone.collection.PNG)
+![backbone.collection](JointJS/backbone.collection.PNG)
 
 **joint.dia.GraphCells**继承自Backbone.Collection，是graph中的cells的有序集合，存储在graph的“cells”属性中。
 
