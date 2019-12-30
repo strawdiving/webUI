@@ -66,6 +66,7 @@ joint.dia.Element和joint.dia.Link都继承自joint.dia.Cell，并添加了一�
 
 继承自BackBone.Model，图表cells的基本模型。这是一个具有一些附加属性和方法的Backbone Model，具有唯一标识符，每个cell都有一个存储在id属性中的唯一ID。
 - joint.dia.Cell.define(type,[defaultAttributes,prototypeProperties,staticProperties])
+
 define方法,帮助定义新的Cell类或扩展现有的类。
 type —— 必须是类的唯一标识符，指定了类在joint.shapes命名空间中的位置（typ是由“.”分隔的类定义的路径）。在创建cell的实例时，任何未指定的属性都将设置为defaultAttributes中的值。
 
@@ -86,6 +87,7 @@ joint.shapes.devs.Model.define('app.CircularModel',{
 ```
 
 SVG markup，由joint.dia.CellView使用该markup将元素渲染。
+
 attrs是一系列key-value对，keys可以是子元素'text'或'rect'，也可以是用以设置子元素的SVG属性如'stroke','fill'等。
 
 ##### joint.dia.Element
@@ -144,7 +146,11 @@ joint.shapes.basic.Generic.define('basic.Rect', {
 
 - Nesting
 
-元素的最后两个属性是embeds和parent。这两个属性与包含或包含在其他元素中构成分层结构的元素有关。embeds是嵌入在元素内部的cell ID的列表，parent是embedded 元素的父元素的id。当一个父元素被translate时，它的所有孩子也会被translate。
+元素的最后两个属性是embeds和parent。这两个属性与包含或包含在其他元素中构成分层结构的元素有关。
+
+embeds是嵌入在元素内部的cell ID的列表；
+
+parent是embedded 元素的父元素的id。当一个父元素被translate时，它的所有孩子也会被translate。
 
 ##### joint.dia.Link
 
