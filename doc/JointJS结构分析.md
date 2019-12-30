@@ -3,8 +3,8 @@
 JointJS库导出三个全局变量：joint，v和g。
 
 - **v** —— 是一个称为Vectorizer的轻量级SVG库，可以使SVG文档的操作更容易。JointJS在内部使用此库。通常情况下，除了高级用途之外，用户不需要使用此库。
-- **g **—— JointJS内部使用的轻量级库，提供很多有用的几何操作。用户一般不需要使用此库，但是当你需要在应用程序中执行几何操作时，这个库会很实用。
-- **joint **—— joint命名空间包含了用于构建图表的所有对象。
+- **g**—— JointJS内部使用的轻量级库，提供很多有用的几何操作。用户一般不需要使用此库，但是当你需要在应用程序中执行几何操作时，这个库会很实用。
+- **joint**—— joint命名空间包含了用于构建图表的所有对象。
 
 ## Joint
 
@@ -65,6 +65,28 @@ joint.dia.Element和joint.dia.Link都继承自joint.dia.Cell，并添加了一�
 ##### joint.dia.Cell
 
 继承自BackBone.Model，图表cells的基本模型。这是一个具有一些附加属性和方法的Backbone Model，具有唯一标识符，每个cell都有一个存储在id属性中的唯一ID。
+- joint.dia.Cell.define(type,[defaultAttributes,prototypeProperties,staticProperties])
+define方法,帮助定义新的Cell类或扩展现有的类。
+type —— 必须是类的唯一标识符，指定了类在joint.shapes命名空间中的位置（typ是由“.”分隔的类定义的路径）。在创建cell的实例时，任何未指定的属性都将设置为defaultAttributes中的值。
+
+```javascript
+joint.shapes.devs.Model.define('app.CircularModel',{
+  ports: {
+    groups: {
+      'in':{
+        markup: '<circle class="port-body" r="10"/>', 
+        attrs: {  
+          'port-body': {.....},
+          'port-label': {......}
+        }
+      }
+    }
+  }
+})
+```
+
+SVG markup，由joint.dia.CellView使用该markup将元素渲染。
+attrs是一系列key-value对，keys可以是子元素'text'或'rect'，也可以是用以设置子元素的SVG属性如'stroke','fill'等。
 
 ##### joint.dia.Element
 
@@ -85,7 +107,7 @@ position/angle/size可以使用常规Backbone set（）/ get（）方法或通�
 
 在MDN上可以找到SVG属性列表和它们的描述。
 
-值得注意的是，每个joint.dia.Element定义了一个SVG markup，然后由joint.dia.ElementView使用该markup将元素渲染/呈现给paper。
+每个joint.dia.Element定义了一个SVG markup，然后由joint.dia.ElementView使用该markup将元素渲染/呈现给paper。
 
 ```javascript
 // eg. joint.shapes.basic.Rect元素
@@ -116,7 +138,9 @@ joint.shapes.basic.Generic.define('basic.Rect', {
 
 注：修改属性时不建议直接更改attrs对象，建议使用attr方法。
 
-z属性指定SVG DOM中元素的堆栈顺序。具有较高z等级的元素位于具有较低z等级的元素的前面。（这也适用于具有完全相同属性的link）
+**z属性**
+
+指定SVG DOM中元素的堆栈顺序。具有较高z等级的元素位于具有较低z等级的元素的前面。（这也适用于具有完全相同属性的link）
 
 - Nesting
 
@@ -183,7 +207,10 @@ joint.dia.Paper是joint.dia.Graph模型的视图，继承自 joint.mvc.View（�
 
 **joint.dia.GraphCells**继承自Backbone.Collection，是graph中的cells的有序集合，存储在graph的“cells”属性中。
 
-Backbone.Collection是models的有序集合，可以绑定“change"事件，以便collection中的任何model被修改时通知。collection中的model触发的任何事件也将直接在collection上触发，允许监听collection中任何model中特定属性的更改。
+Backbone.Collection是models的有序集合，可以绑定“change"事件，以便collection中的任何model被修改时通知。
+collection中的model触发的任何事件也将直接在collection上触发，即，在elements或 links上触发的所有事件也会传播到graph中。
+
+允许监听collection中任何model中特定属性的更改。
 
 ### 其他模块
 
