@@ -1,4 +1,4 @@
-link的SVG结构
+### link的SVG结构
 ```html
 <path class= "connection"/>
 <path class="marker-source"/>
@@ -47,7 +47,7 @@ link.attr({
 link.set('vertices',[......]);
 link.set('smooth',true);
 ```
-element的SVG结构
+### element的SVG结构
 ```html
 <g class="element basic Rect">
   <g class="rotatable">
@@ -101,3 +101,71 @@ joint.shapes.basic.Rect = joint.shapes.basic.Generic.extend({
     }, joint.shapes.basic.Generic.prototype.defaults)
 });
 ```
+### 带ports的elements
+1. 使用joint.shapes.devs plugin,其定义了joint.shapes.devs.Model shape
+```javascript
+var m1 = new joint.shapes.devs.Model({
+  position: ...,
+  size:...,
+  inports: ["in1",:in2"],
+  outports: ["out"],
+  ports: {
+    groups: {
+      'in': {
+        attrs: {
+          'port-body': { fill:..., magnet: 'passive'
+          }
+        }
+      },
+      'out': {
+        attrs: {
+          'port-body': { fill:..., magnet: 'passive'
+          }
+        }
+      }
+    }
+  },
+  attrs: {
+    '.label': { text:...,'ref-x':...,'ref-y':...},
+    rect: { fill:...}
+  }
+});
+```
+1. 可以查看两个magnet和port连接link的信息：
+```javascript
+graph.on('change:source change:target',function(link) {
+  var sourcePort = link.get('source').port;
+  var sourceId = link.get('source').id;
+  ...
+  var m = ['The port' + sourcePort , 'of element with ID' + sourceId + '</b>'].join(',');
+})
+```
+
+2. link限制
+如：不从input ports开始，不以output ports结束，标记某些magnets ‘passive’。
+
+paper中: validateConnection()和validateMagnet()
+```javascript
+var paper = new joint.dia.Paper({
+  ...
+  validateConnection: function(cellViewS,magnetS,cellViewT,magentT,end,linkView) {
+    // 防止从同一个元素的outports到inputs
+  },
+  validMagnet: function(cellView,magnet){
+    ...
+    return magnet.getAttribute('magnet')!=='passive'; // magnets标记为passive，disable link交互
+  }
+})
+```
+
+3. link snapping
+当用户拖拽一个link时，自动搜寻给定半径内最近的port，如果合适，自动连接。
+在paper的snapeLinks属性设置:
+```javascript
+snapLinks: { radius:75 }
+```
+
+4. Marking available magnets
+当拖拽一个link时，突出显示可连接的magnets
+1）将paper的markAvailable属性设为true
+2）添加一些css属性，标记可连接的magnets
