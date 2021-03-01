@@ -21,7 +21,7 @@
     "jointjs": "^2.0.1",
     "jquery": "^3.3.1",
     "socket.io-client": "2.0.4",
-    "three": "^0.93.0",
+    "three": "^0.125.0",
     "three-stl-loader": "^1.0.6",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
