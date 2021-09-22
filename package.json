@@ -18,7 +18,7 @@
     "axios": "^0.15.3",
     "echarts": "^4.2.0-rc.1",
     "element-ui": "^2.2.0",
-    "jointjs": "^2.0.1",
+    "jointjs": "^3.4.2",
     "jquery": "^3.3.1",
     "socket.io-client": "2.0.4",
     "three": "^0.93.0",
